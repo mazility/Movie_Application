@@ -17,6 +17,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.kimkevin.cachepot.CachePot
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.movie_row.view.*
 
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        listOfMovie()
         btn1.setOnClickListener { listOfMovie() }
         //btn2.setOnClickListener { movieInfo}
     }
@@ -56,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("check", "Movies size " + mov?.size)
                 if (mov != null) {
                     for (i in mov) {
-                        movList.add(Movie(i.id,i.title,i.genre,i.date,"http://www.majorcineplex.com" +i.picture))
+                        movList.add(Movie(i.id,i.title,i.genre,i.date,"http://www.majorcineplex.com" +i.picture,i.detail))
                     }
                     listview.adapter = MovieAdapter(applicationContext, movList)
                 }
@@ -100,10 +101,9 @@ class MainActivity : AppCompatActivity() {
             return this.mList.size
         }
 
-        fun movieInfo(movie: Movie) {
-            Toast.makeText(this.context, "Cicked on: " + movie.id, Toast.LENGTH_LONG).show()
-
-            val i = Intent(this.context, MovieInfo::class.java)
+        private fun movieInfo(movie: Movie) {
+            val i = Intent(this.context, MovieInfos::class.java)
+            CachePot.getInstance().push(movie);
             this.context?.startActivity(i)
 
         }

@@ -14,6 +14,7 @@ data class Movie(
         @SerializedName("title_en") var title: String = "",
         @SerializedName("genre") var genre: String = "",
         @SerializedName("release_date") var date: String = "",
-        @SerializedName("poster_ori") var picture: String = ""
+        @SerializedName("poster_ori") var picture: String = "",
+        @SerializedName("synopsis_en") var detail: String = ""
 )
 
